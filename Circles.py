@@ -4,13 +4,14 @@ import sys
 from PyQt5 import uic
 from PyQt5.QtGui import QPainter, QColor
 from PyQt5.QtWidgets import QMainWindow, QApplication
+from file import Ui_MainWindow
 
 
-class MainWindow(QMainWindow):
+class MainWindow(QMainWindow, Ui_MainWindow):
     def __init__(self):
         super().__init__()
         self.do_paint = None
-        uic.loadUi('UI.ui', self)  # Загружаем дизайн
+        self.setupUi(self)
         self.circle_button.clicked.connect(self.paint)
 
     def paintEvent(self, event):
@@ -27,7 +28,10 @@ class MainWindow(QMainWindow):
 
     def draw_flag(self, qp):
         # Задаем кисть
-        qp.setBrush(QColor(255, 255, 0))
+        r = random.randrange(0, 255)
+        g = random.randrange(0, 255)
+        b = random.randrange(0, 255)
+        qp.setBrush(QColor(r, g, b))
         x = random.randrange(1, 700)
         y = random.randrange(1, 500)
         diametr = random.randrange(25, 500)
